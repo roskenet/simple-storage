@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface UploadController {
 
-    ResponseEntity<Void> upload(String id, String mimeType, InputStream body);
+    ResponseEntity<Void> upload(String id, InputStream bytes);
 
     ResponseEntity<byte[]> download(String id);
 

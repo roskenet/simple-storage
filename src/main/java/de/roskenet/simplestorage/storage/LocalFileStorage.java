@@ -1,8 +1,9 @@
 package de.roskenet.simplestorage.storage;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,10 +23,12 @@ public class LocalFileStorage implements PersistentStorage {
     private String localFileName = "/tmp/{0}";
 
     @Override
-    public void write(final String id, final InputStream iStream) {
+    public void write(final String id, byte[] bytes) {
         Path path = Paths.get(MessageFormat.format(localFileName, id));
-        try {
-            Files.copy(iStream, path);
+        
+        try (OutputStream out = new FileOutputStream(path.toFile())){
+            out.write(bytes);
+            
         } catch (IOException e) {
 
             // TODO Auto-generated catch block

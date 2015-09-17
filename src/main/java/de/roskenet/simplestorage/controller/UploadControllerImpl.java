@@ -3,6 +3,7 @@ package de.roskenet.simplestorage.controller;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import java.net.URI;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.amazonaws.util.IOUtils;
+
 import de.roskenet.simplestorage.storage.PersistentStorage;
 
 @RestController
@@ -28,10 +31,13 @@ public class UploadControllerImpl implements UploadController {
 
     @Override
     @RequestMapping(value = "/files/{id}", method = RequestMethod.POST, consumes = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity<Void> upload(@PathVariable("id") final String id,
-            @RequestHeader("Content-Type") final String mimeType, final InputStream body) {
+    public ResponseEntity<Void> upload(@PathVariable("id") final String id, final InputStream bytes) {
 
-        storage.write(id, body);
+        try {
+			storage.write(id, IOUtils.toByteArray(bytes) );
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
         return ResponseEntity.created(getLocation(id)).build();
 
