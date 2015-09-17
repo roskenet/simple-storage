@@ -28,7 +28,7 @@ public class S3Storage implements PersistentStorage {
 
 //
 // String filePath = "E://Pics//mypic.JPG";
-        String amazonFileUploadLocationOriginal = "feliximages/";
+        String amazonFileUploadLocationOriginal = "feliximages";
 
 //
 //
@@ -39,6 +39,7 @@ public class S3Storage implements PersistentStorage {
         ObjectMetadata objectMetadata = new ObjectMetadata();
         PutObjectRequest putObjectRequest = new PutObjectRequest(amazonFileUploadLocationOriginal, keyName, iStream,
                 objectMetadata);
+        putObjectRequest.getRequestClientOptions().setReadLimit(15000000);
         PutObjectResult result = amazonS3.putObject(putObjectRequest);
         System.out.println("Etag:" + result.getETag() + "-->" + result);
 
