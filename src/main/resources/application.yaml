@@ -5,3 +5,7 @@ cloud:
             secretKey: ${AWS_SECRET_KEY}
         region:
             static: eu-central-1
+
+storage:
+    bucket:
+        name: feliximages
