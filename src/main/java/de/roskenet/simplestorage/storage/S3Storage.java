@@ -32,17 +32,12 @@ public class S3Storage implements PersistentStorage {
 	}
 
 	@Override
-	public byte[] read(final String id) {
+	public InputStream read(final String id) {
 		S3Object s3object = amazonS3.getObject(new GetObjectRequest(bucketName, id));
 
 		InputStream stream = s3object.getObjectContent();
-		try {
-			return IOUtils.toByteArray(stream);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		//			return IOUtils.toByteArray(stream);
+		return stream;
 	}
 
 }

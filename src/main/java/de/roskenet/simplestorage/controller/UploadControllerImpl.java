@@ -45,7 +45,7 @@ public class UploadControllerImpl implements UploadController {
 
     @Override
     @RequestMapping(value = "/files/{id}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity<byte[]> download(@PathVariable("id") final String id) {
+    public ResponseEntity<InputStream> download(@PathVariable("id") final String id) {
 
         return ResponseEntity.ok(storage.read(id));
     }

@@ -8,6 +8,6 @@ public interface UploadController {
 
     ResponseEntity<Void> upload(String id, InputStream bytes);
 
-    ResponseEntity<byte[]> download(String id);
+    ResponseEntity<InputStream> download(String id);
 
 }
