@@ -9,4 +9,6 @@ public interface PersistentStorage {
     void write(String id, byte[] bytes);
 
     InputStreamResource read(String id);
+    
+    void delete(String id);
 }

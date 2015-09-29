@@ -21,7 +21,7 @@ public class S3Storage implements PersistentStorage {
 	private AmazonS3 amazonS3;
 
 	@Override
-	public void write(final String id, final byte[] bytes) {
+	public void write(String id, byte[] bytes) {
 
 		Thread uploadThread = new Thread(new UploadTask(amazonS3, id, bytes, bucketName));
 		uploadThread.start();
@@ -29,12 +29,17 @@ public class S3Storage implements PersistentStorage {
 	}
 
 	@Override
-	public InputStreamResource read(final String id) {
+	public InputStreamResource read(String id) {
 		S3Object s3object = amazonS3.getObject(new GetObjectRequest(bucketName, id));
 
 		InputStreamResource stream = new InputStreamResource(s3object.getObjectContent());
-		//			return IOUtils.toByteArray(stream);
 		return stream;
+	}
+
+	@Override
+	public void delete(String id) {
+		
+		amazonS3.deleteObject(bucketName, id);
 	}
 
 }

@@ -10,5 +10,7 @@ public interface UploadController {
     ResponseEntity<Void> upload(String id, InputStream bytes);
 
     ResponseEntity<InputStreamResource> download(String id);
+    
+    ResponseEntity<Void> delete(String id);
 
 }
