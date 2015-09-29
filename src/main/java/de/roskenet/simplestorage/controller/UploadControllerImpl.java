@@ -39,7 +39,8 @@ public class UploadControllerImpl implements UploadController {
 			e.printStackTrace();
 		}
 
-        return ResponseEntity.created(getLocation(id)).build();
+//        return ResponseEntity.created(getLocation(id)).build();
+        return ResponseEntity.accepted().build();
 
     }
 
