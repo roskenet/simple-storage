@@ -8,4 +8,4 @@ cloud:
 
 storage:
     bucket:
-        name: feliximages
+        name: ${AWS_BUCKET_NAME}

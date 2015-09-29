@@ -28,8 +28,8 @@ public class UploadControllerImpl implements UploadController {
     private PersistentStorage storage;
 
     @Override
-    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public ResponseEntity<Void> upload(@PathVariable("id") final String id, final InputStream bytes) {
+    @RequestMapping(method = RequestMethod.POST, consumes = "image/*")
+    public ResponseEntity<Void> upload(@PathVariable("id") String id, InputStream bytes) {
 
         try {
 			storage.write(id, IOUtils.toByteArray(bytes) );
@@ -43,7 +43,7 @@ public class UploadControllerImpl implements UploadController {
 
     @Override
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public ResponseEntity<InputStreamResource> download(@PathVariable("id") final String id) {
+    public ResponseEntity<InputStreamResource> download(@PathVariable("id") String id) {
     	
         return ResponseEntity.ok(storage.read(id));
     }
