@@ -9,7 +9,7 @@ import java.io.InputStream;
 import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
@@ -46,8 +46,8 @@ public class UploadControllerImpl implements UploadController {
 
     @Override
     @RequestMapping(value = "/files/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public ResponseEntity<InputStream> download(@PathVariable("id") final String id) {
-
+    public ResponseEntity<InputStreamResource> download(@PathVariable("id") final String id) {
+    	
         return ResponseEntity.ok(storage.read(id));
     }
 

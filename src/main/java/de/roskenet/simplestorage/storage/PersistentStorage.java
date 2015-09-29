@@ -2,9 +2,11 @@ package de.roskenet.simplestorage.storage;
 
 import java.io.InputStream;
 
+import org.springframework.core.io.InputStreamResource;
+
 public interface PersistentStorage {
 
     void write(String id, byte[] bytes);
 
-    InputStream read(String id);
+    InputStreamResource read(String id);
 }

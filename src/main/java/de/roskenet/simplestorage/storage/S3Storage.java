@@ -1,17 +1,14 @@
 package de.roskenet.simplestorage.storage;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Component;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
-import com.amazonaws.util.IOUtils;
 
 @Component
 @Profile("default")
@@ -32,10 +29,10 @@ public class S3Storage implements PersistentStorage {
 	}
 
 	@Override
-	public InputStream read(final String id) {
+	public InputStreamResource read(final String id) {
 		S3Object s3object = amazonS3.getObject(new GetObjectRequest(bucketName, id));
 
-		InputStream stream = s3object.getObjectContent();
+		InputStreamResource stream = new InputStreamResource(s3object.getObjectContent());
 		//			return IOUtils.toByteArray(stream);
 		return stream;
 	}
