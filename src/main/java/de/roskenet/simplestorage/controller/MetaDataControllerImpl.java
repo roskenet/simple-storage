@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import de.roskenet.simplestorage.entity.Image;
 import de.roskenet.simplestorage.repository.ImageRepository;
+import de.roskenet.simplestorage.repository.ImageStatus;
+import de.roskenet.simplestorage.resources.UploadProgressResource;
 
 @RestController
 @RequestMapping("/files/{id}")
@@ -25,7 +27,11 @@ public class MetaDataControllerImpl {
 	}
 	
 	@RequestMapping(value = "/status", method=RequestMethod.GET)
-	public ResponseEntity<String> status(@PathVariable("id") String id){
-		return ResponseEntity.ok(imageRepository.findOne(UUID.fromString(id)).status);
+	public ResponseEntity<UploadProgressResource> status(@PathVariable("id") String id){
+		
+		UploadProgressResource uploadProgressResource = new UploadProgressResource();
+		uploadProgressResource.status = ImageStatus.valueOf(imageRepository.findOne(UUID.fromString(id)).status);
+		
+		return ResponseEntity.ok(uploadProgressResource);
 	}
 }

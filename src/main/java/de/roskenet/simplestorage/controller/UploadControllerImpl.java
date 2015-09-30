@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.roskenet.simplestorage.repository.ImageRepository;
+import de.roskenet.simplestorage.repository.ImageStatus;
+import de.roskenet.simplestorage.repository.StatusController;
 import de.roskenet.simplestorage.storage.PersistentStorage;
 
 @RestController
@@ -27,6 +30,9 @@ public class UploadControllerImpl implements UploadController {
 
     @Autowired
     private PersistentStorage storage;
+    
+    @Autowired
+    private StatusController statusController;
 
 //    @Override
 //    @RequestMapping(value="/info", method=RequestMethod.GET)
@@ -43,7 +49,7 @@ public class UploadControllerImpl implements UploadController {
     public ResponseEntity<Void> upload(@PathVariable("id") String id, InputStream bytes) {
     	
         try {
-			storage.write(id, IOUtils.toByteArray(bytes) );
+			storage.write(id, IOUtils.toByteArray(bytes), statusController);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
