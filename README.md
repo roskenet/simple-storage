@@ -12,3 +12,4 @@ TODOs:
 Plans:
    * Read EXIF information from images and store them.
    * Create thumbnails for web galleries.
+   * Mark images as public to access them directly via S3-Link.
