@@ -9,3 +9,9 @@ cloud:
 storage:
     bucket:
         name: ${AWS_BUCKET_NAME}
+
+spring:
+    datasource:
+        url: ${DB_URL}
+        username: ${DB_USERNAME}
+        password: ${DB_PASSWORD}

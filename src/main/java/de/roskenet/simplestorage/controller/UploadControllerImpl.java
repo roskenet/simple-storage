@@ -37,7 +37,7 @@ public class UploadControllerImpl implements UploadController {
     @Override
     @RequestMapping(value = "/data", method = RequestMethod.POST, consumes = "image/*")
     public ResponseEntity<Void> upload(@PathVariable("id") String id, InputStream bytes) {
-
+    	
         try {
 			storage.write(id, IOUtils.toByteArray(bytes) );
 		} catch (IOException e) {
