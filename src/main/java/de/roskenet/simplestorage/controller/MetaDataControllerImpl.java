@@ -36,6 +36,9 @@ public class MetaDataControllerImpl {
 	public ResponseEntity<Void> setPublicStatus(@PathVariable("id") String id, @RequestBody SimpleStatusWrapper status) {
 //		System.out.println("Set to : " + status.status);
 		// TODO Work in Progress: update the DB status and the permissions in S3
+		
+//		statusController.setPublicity(id, status.status);
+		
 		return ResponseEntity.accepted().build();
 	}
 	
