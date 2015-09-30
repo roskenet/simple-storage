@@ -17,7 +17,7 @@ import de.roskenet.simplestorage.repository.ImageStatus;
 import de.roskenet.simplestorage.resources.UploadProgressResource;
 
 @RestController
-@RequestMapping("/files/{id}")
+@RequestMapping("/images/{id}")
 public class MetaDataControllerImpl {
 
 	@Autowired

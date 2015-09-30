@@ -14,7 +14,7 @@ import de.roskenet.simplestorage.entity.Tag;
 import de.roskenet.simplestorage.repository.TagRepository;
 
 @RestController
-@RequestMapping("/imagetags")
+@RequestMapping("/tags")
 public class TagController {
 
 	@Autowired

@@ -25,7 +25,7 @@ import de.roskenet.simplestorage.repository.StatusController;
 import de.roskenet.simplestorage.storage.PersistentStorage;
 
 @RestController
-@RequestMapping("/files/{id}")
+@RequestMapping("/images/{id}")
 public class UploadControllerImpl implements UploadController {
 
     @Autowired
@@ -33,16 +33,6 @@ public class UploadControllerImpl implements UploadController {
     
     @Autowired
     private StatusController statusController;
-
-//    @Override
-//    @RequestMapping(value="/info", method=RequestMethod.GET)
-//    public ResponseEntity<ImageResource> info(@PathVariable("id") String id) {
-//    	ImageResource myImageResource = new ImageResource();
-//    	
-//    	myImageResource.title = "MyCoolTitle";
-//    	
-//    	return ResponseEntity.ok(myImageResource);
-//    }
     
     @Override
     @RequestMapping(value = "/data", method = RequestMethod.POST, consumes = "*/*")

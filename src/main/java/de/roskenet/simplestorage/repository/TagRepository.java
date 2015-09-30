@@ -7,9 +7,9 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import de.roskenet.simplestorage.entity.Tag;
 
-//@RepositoryRestResource(exported=false)
+@RepositoryRestResource(exported=false)
 //@RepositoryRestResource(path="/tags", exported=false)
-@RepositoryRestResource
+//@RepositoryRestResource
 public interface TagRepository extends JpaRepository<Tag, String>{
 //	List<Tag> findAllByOrderById();
 }
