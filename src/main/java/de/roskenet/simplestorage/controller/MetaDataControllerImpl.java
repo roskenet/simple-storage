@@ -3,6 +3,7 @@ package de.roskenet.simplestorage.controller;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,7 +48,14 @@ public class MetaDataControllerImpl {
 	public ResponseEntity<UploadProgressResource> status(@PathVariable("id") String id){
 		
 		UploadProgressResource uploadProgressResource = new UploadProgressResource();
-		uploadProgressResource.status = ImageStatus.valueOf(imageRepository.findOne(UUID.fromString(id)).status);
+		Image image = imageRepository.findOne(UUID.fromString(id));
+		
+		if(image==null) {
+			// TODO: Return 404 
+//			return ResponseEntity.status(null, null).build();
+		}
+		
+		uploadProgressResource.status = ImageStatus.valueOf(image.status);
 		
 		return ResponseEntity.ok(uploadProgressResource);
 	}
