@@ -45,7 +45,7 @@ public class UploadControllerImpl implements UploadController {
 //    }
     
     @Override
-    @RequestMapping(value = "/data", method = RequestMethod.POST, consumes = "image/*")
+    @RequestMapping(value = "/data", method = RequestMethod.POST, consumes = "*/*")
     public ResponseEntity<Void> upload(@PathVariable("id") String id, InputStream bytes) {
     	
         try {
