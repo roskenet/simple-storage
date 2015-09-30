@@ -11,18 +11,17 @@ CREATE TABLE image (
 );
 
 CREATE TABLE tag (
-    code TEXT PRIMARY KEY,
+    id TEXT PRIMARY KEY,
     created_date TIMESTAMP DEFAULT now(),
     created_by TEXT DEFAULT 'UNKNOWN',
     last_modified_date TIMESTAMP DEFAULT now(),
-    last_modified_by TEXT DEFAULT 'UNKNOWN',
-    name TEXT NOT NULL
+    last_modified_by TEXT DEFAULT 'UNKNOWN'
 );
 
 CREATE TABLE image_tags (
     image_id UUID REFERENCES image (id) ON DELETE CASCADE,
-    tags_code TEXT REFERENCES tag (code) ON DELETE CASCADE
+    tags_id TEXT REFERENCES tag (id) ON DELETE CASCADE
 );
 
 CREATE INDEX ON image_tags (image_id);
-CREATE INDEX ON image_tags (tags_code);
+CREATE INDEX ON image_tags (tags_id);

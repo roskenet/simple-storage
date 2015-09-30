@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +25,22 @@ public class MetaDataControllerImpl {
 	@RequestMapping(value = "/info", method=RequestMethod.GET)
 	public ResponseEntity<Image> info(@PathVariable("id") String id){
 		return ResponseEntity.ok(imageRepository.findOne(UUID.fromString(id)));
+	}
+	
+	@RequestMapping(value="/info", method=RequestMethod.PUT)
+	public ResponseEntity<Void> updateInfo(@PathVariable("id") String id, @RequestBody Image image){
+		Image persistedImage = imageRepository.findOne(UUID.fromString(id));
+		
+		if(persistedImage==null) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		persistedImage.tags = image.tags;
+		persistedImage.title = image.title;
+		
+		imageRepository.save(persistedImage);
+		
+		return ResponseEntity.noContent().build();
 	}
 	
 	@RequestMapping(value = "/status", method=RequestMethod.GET)
