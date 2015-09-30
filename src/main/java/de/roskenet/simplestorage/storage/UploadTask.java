@@ -34,7 +34,7 @@ public class UploadTask implements Runnable {
 
     @Override
     public void run() {
-    	statusController.set(id, ImageStatus.UPLOAD_IN_PROGRESS);
+    	statusController.set(id, null, 0, ImageStatus.UPLOAD_IN_PROGRESS);
         // TODO check result and try again, set error if necessary
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentLength(bytes.length);
@@ -50,7 +50,16 @@ public class UploadTask implements Runnable {
                 objectMetadata);
         PutObjectResult result = amazonS3.putObject(putObjectRequest);
         
-        statusController.set(id, ImageStatus.OK);
+        // TODO: Right now this is always https://<bucketname>.s3.amazonaws.com/<key>
+        // We simply create the linke like this. Is this correct?
+        
+        String s3path= new StringBuilder()
+        		.append("https://")
+        		.append(bucketName)
+        		.append(".s3.amazonaws.com/")
+        		.append(id).toString();
+        
+        statusController.set(id, s3path, bytes.length, ImageStatus.OK);
     }
     
     private static String determineImageFormat( byte[] imageBytes ) throws IOException {

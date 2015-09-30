@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import de.roskenet.simplestorage.repository.ImageRepository;
 import de.roskenet.simplestorage.repository.ImageStatus;
+import de.roskenet.simplestorage.repository.RedirectStatus;
 import de.roskenet.simplestorage.repository.StatusController;
 import de.roskenet.simplestorage.storage.PersistentStorage;
 
@@ -52,11 +53,20 @@ public class UploadControllerImpl implements UploadController {
     @RequestMapping(value = "/data", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<InputStreamResource> download(@PathVariable("id") String id) {
     	
+    	RedirectStatus redirectStatus = statusController.getRedirect(id);
+    	
+    	if(redirectStatus.isPublic) {
+    		return ResponseEntity
+    				.status(HttpStatus.FOUND)
+    				.header("Location", redirectStatus.location)
+    				.body(null);
+    	}
+    	
     	HttpHeaders headers = new HttpHeaders();
     	headers.add("Content-Type", "image/jpeg");
     	ResponseEntity<InputStreamResource> responseEntity = new ResponseEntity<InputStreamResource>(storage.read(id), headers, HttpStatus.OK);
-    	
     	return responseEntity;
+    	
     }
 
     @Override

@@ -32,5 +32,10 @@ public class Image {
 	public List<Tag> tags;
 	@JsonIgnore
 	public String status;
-	
+	@JsonIgnore
+	public String amazonpath;
+	@JsonIgnore
+	public int size;
+	@JsonIgnore
+	public boolean wwwreadable;
 }

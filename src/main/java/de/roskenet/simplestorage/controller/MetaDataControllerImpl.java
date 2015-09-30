@@ -3,7 +3,6 @@ package de.roskenet.simplestorage.controller;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import de.roskenet.simplestorage.entity.Image;
 import de.roskenet.simplestorage.repository.ImageRepository;
 import de.roskenet.simplestorage.repository.ImageStatus;
+import de.roskenet.simplestorage.repository.RedirectStatus;
+import de.roskenet.simplestorage.repository.StatusController;
 import de.roskenet.simplestorage.resources.UploadProgressResource;
 
 @RestController
@@ -22,6 +23,14 @@ public class MetaDataControllerImpl {
 
 	@Autowired
 	private ImageRepository imageRepository;
+	
+	@Autowired
+	private StatusController statusController;
+	
+	@RequestMapping(value="/public", method=RequestMethod.GET)
+	public ResponseEntity<RedirectStatus> publicStatus(@PathVariable("id") String id) {
+		return ResponseEntity.ok(statusController.getRedirect(id));
+	}
 	
 	@RequestMapping(value = "/info", method=RequestMethod.GET)
 	public ResponseEntity<Image> info(@PathVariable("id") String id){

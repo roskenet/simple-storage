@@ -14,7 +14,7 @@ public class StatusControllerImpl implements StatusController {
 	private ImageRepository imageRepository;
 	
 	@Override
-	public void set(String id, ImageStatus status) {
+	public void set(String id, String amazonPath, int size, ImageStatus status) {
 		Image image = imageRepository.findOne(UUID.fromString(id));
 		
 		if(image==null) {
@@ -24,14 +24,22 @@ public class StatusControllerImpl implements StatusController {
 			image.title = "No Title";
 		}
 		
+		image.amazonpath = amazonPath;
+		image.size = size;
 		image.status = status.name();
 		imageRepository.save(image);
 	}
 
 	@Override
-	public ImageStatus get(String id) {
-		return ImageStatus.valueOf(imageRepository.findOne(UUID.fromString(id)).status);
+	public RedirectStatus getRedirect(String id) {
+		Image image = imageRepository.findOne(UUID.fromString(id));
+		RedirectStatus redirectStatus = new RedirectStatus();
 		
+		if(image != null) {
+			redirectStatus.location = image.amazonpath;
+			redirectStatus.isPublic = image.wwwreadable;
+		}
+		return redirectStatus;
 	}
 
 }
