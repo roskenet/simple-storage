@@ -28,8 +28,15 @@ public class MetaDataControllerImpl {
 	private StatusController statusController;
 	
 	@RequestMapping(value="/public", method=RequestMethod.GET)
-	public ResponseEntity<RedirectStatus> publicStatus(@PathVariable("id") String id) {
+	public ResponseEntity<RedirectStatus> getPublicStatus(@PathVariable("id") String id) {
 		return ResponseEntity.ok(statusController.getRedirect(id));
+	}
+	
+	@RequestMapping(value="/public", method=RequestMethod.PUT)
+	public ResponseEntity<Void> setPublicStatus(@PathVariable("id") String id, @RequestBody SimpleStatusWrapper status) {
+//		System.out.println("Set to : " + status.status);
+		// TODO Work in Progress: update the DB status and the permissions in S3
+		return ResponseEntity.accepted().build();
 	}
 	
 	@RequestMapping(value = "/info", method=RequestMethod.GET)
