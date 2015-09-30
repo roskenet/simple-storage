@@ -8,3 +8,7 @@ Limitations:
 TODOs:
    * Provide more RESTful things (e.g. OPTIONS)
    * Provide search for tags.
+
+Plans:
+   * Read EXIF information from images and store them.
+   * Create thumbnails for web galleries.
