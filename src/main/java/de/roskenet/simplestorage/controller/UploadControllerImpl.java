@@ -6,24 +6,18 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.amazonaws.util.IOUtils;
 
 import de.roskenet.simplestorage.storage.PersistentStorage;
 
@@ -34,6 +28,16 @@ public class UploadControllerImpl implements UploadController {
     @Autowired
     private PersistentStorage storage;
 
+//    @Override
+//    @RequestMapping(value="/info", method=RequestMethod.GET)
+//    public ResponseEntity<ImageResource> info(@PathVariable("id") String id) {
+//    	ImageResource myImageResource = new ImageResource();
+//    	
+//    	myImageResource.title = "MyCoolTitle";
+//    	
+//    	return ResponseEntity.ok(myImageResource);
+//    }
+    
     @Override
     @RequestMapping(value = "/data", method = RequestMethod.POST, consumes = "image/*")
     public ResponseEntity<Void> upload(@PathVariable("id") String id, InputStream bytes) {
